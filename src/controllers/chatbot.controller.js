@@ -1,4 +1,6 @@
-const VERIFY_TOKEN_FB = process.env.VERIFY_TOKEN_FB;
+const dotenv = require("dotenv");
+dotenv.config();
+const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
 const VERIFY_TOKEN = process.env.WEBHOOK_VERIFY_TOKEN;
 const request = require("request");
 
@@ -136,7 +138,7 @@ function callSendAPI(sender_psid, response) {
   request(
     {
       uri: "https://graph.facebook.com/v2.6/me/messages",
-      qs: { access_token: VERIFY_TOKEN_FB },
+      qs: { access_token: PAGE_ACCESS_TOKEN },
       method: "POST",
       json: request_body,
     },
@@ -150,22 +152,23 @@ function callSendAPI(sender_psid, response) {
   );
 }
 
-const setupProfile = (req, res, next) => {
+const setupProfile = async (req, res, next) => {
   //Call profile api
   let request_body = {
-    get_started: "GET_STARTED",
-    whitelisted_domains: "https://chatbot-meaning.herokuapp.com/",
+    get_started: { payload: "GET_STARTED" },
+    whitelisted_domains: ["https://chatbot-meaning.herokuapp.com/"],
   };
 
   // Send the HTTP request to the Messenger Platform
-  request(
+  await request(
     {
-      uri: `https://graph.facebook.com/v12.0/me/messenger_profile?access_token=${VERIFY_TOKEN_FB}`,
-      qs: { access_token: VERIFY_TOKEN_FB },
+      uri: `https://graph.facebook.com/v12.0/me/messenger_profile?access_token=${PAGE_ACCESS_TOKEN}`,
+      qs: { access_token: PAGE_ACCESS_TOKEN },
       method: "POST",
       json: request_body,
     },
     (err, res, body) => {
+      console.log(body);
       if (!err) {
         console.log("setup user profile done");
       } else {
@@ -173,6 +176,7 @@ const setupProfile = (req, res, next) => {
       }
     }
   );
+  return res.send("setup user profile done");
 };
 module.exports = {
   getWebhook,
