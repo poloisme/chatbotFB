@@ -156,28 +156,28 @@ function callSendAPI(sender_psid, response) {
 
 const setupProfile = async (req, res, next) => {
   //Call profile api
-  // let request_body = {
-  //   get_started: { payload: "GET_STARTED" },
-  //   whitelisted_domains: ["https://chatbot-meaning.herokuapp.com/"],
-  // };
-  // // Send the HTTP request to the Messenger Platform
-  // await request(
-  //   {
-  //     uri: `https://graph.facebook.com/v12.0/me/messenger_profile?access_token=${PAGE_ACCESS_TOKEN}`,
-  //     qs: { access_token: PAGE_ACCESS_TOKEN },
-  //     method: "POST",
-  //     json: request_body,
-  //   },
-  //   (err, res, body) => {
-  //     console.log(body);
-  //     if (!err) {
-  //       console.log("setup user profile done");
-  //     } else {
-  //       console.error("Unable to setup user profile:" + err);
-  //     }
-  //   }
-  // );
-  // return res.send("setup user profile done");
+  let request_body = {
+    get_started: { payload: "GET_STARTED" },
+    whitelisted_domains: ["https://chatbot-meaning.herokuapp.com/"],
+  };
+  // Send the HTTP request to the Messenger Platform
+  await request(
+    {
+      uri: `https://graph.facebook.com/v12.0/me/messenger_profile?access_token=${PAGE_ACCESS_TOKEN}`,
+      qs: { access_token: PAGE_ACCESS_TOKEN },
+      method: "POST",
+      json: request_body,
+    },
+    (err, res, body) => {
+      console.log(body);
+      if (!err) {
+        console.log("setup user profile done");
+      } else {
+        console.error("Unable to setup user profile:" + err);
+      }
+    }
+  );
+  return res.send("setup user profile done");
 };
 
 module.exports = {
