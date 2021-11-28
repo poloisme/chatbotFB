@@ -10,4 +10,5 @@ router
   .get(ChatbotController.getWebhook)
   .post(ChatbotController.postWebhook);
 
+router.route("/setup-profile").get(ChatbotController.setupProfile);
 module.exports = router;

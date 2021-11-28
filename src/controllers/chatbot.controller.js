@@ -55,7 +55,7 @@ const postWebhook = (req, res, next) => {
 };
 
 const getHome = (req, res, next) => {
-  res.send("Chatbot");
+  res.render("home");
 };
 
 // Handles messages events
@@ -149,8 +149,34 @@ function callSendAPI(sender_psid, response) {
     }
   );
 }
+
+const setupProfile = (req, res, next) => {
+  //Call profile api
+  let request_body = {
+    get_started: "GET_STARTED",
+    whitelisted_domains: "https://chatbot-meaning.herokuapp.com/",
+  };
+
+  // Send the HTTP request to the Messenger Platform
+  request(
+    {
+      uri: `https://graph.facebook.com/v12.0/me/messenger_profile?access_token=${VERIFY_TOKEN_FB}`,
+      qs: { access_token: VERIFY_TOKEN_FB },
+      method: "POST",
+      json: request_body,
+    },
+    (err, res, body) => {
+      if (!err) {
+        console.log("setup user profile done");
+      } else {
+        console.error("Unable to setup user profile:" + err);
+      }
+    }
+  );
+};
 module.exports = {
   getWebhook,
   postWebhook,
   getHome,
+  setupProfile,
 };
