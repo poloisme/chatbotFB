@@ -31,10 +31,33 @@ function callSendAPI(sender_psid, response) {
   );
 }
 
+const getUserName = (sender_psid) => {
+  return new Promise((resolve, reject) => {
+    // Send the HTTP request to the Messenger Platform
+    request(
+      {
+        uri: `https://graph.facebook.com/${sender_psid}?fields=first_name,last_name,profile_pic&access_token=${PAGE_ACCESS_TOKEN}`,
+        method: "GET",
+      },
+      (err, res, body) => {
+        if (!err) {
+          const data = JSON.parse(body);
+          const username = `${data.last_name} ${data.first_name}`;
+          resolve(username);
+        } else {
+          console.error("Unable to send message:" + err);
+          reject(err);
+        }
+      }
+    );
+  });
+};
+
 const handleGetStarted = (sender_psid) => {
   return new Promise(async (resolve, reject) => {
     try {
-      let response = { text: "Oke =))" };
+      const username = await getUserName(sender_psid);
+      const response = { text: `Hi. ${username}` };
       await callSendAPI(sender_psid, response);
       resolve("done");
     } catch (err) {
