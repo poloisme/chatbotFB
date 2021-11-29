@@ -73,7 +73,7 @@ const handleGetStarted = (sender_psid) => {
 };
 
 const getStartedTemplate = () => {
-  response = {
+  let response = {
     attachment: {
       type: "template",
       payload: {
