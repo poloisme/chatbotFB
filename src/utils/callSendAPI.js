@@ -4,7 +4,7 @@ dotenv.config();
 const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
 
 // Sends response messages via the Send API
-const callSendAPI = function (sender_psid, response) {
+function callSendAPI(sender_psid, response) {
   // Construct the message body
   let request_body = {
     recipient: {
@@ -29,7 +29,7 @@ const callSendAPI = function (sender_psid, response) {
       }
     }
   );
-};
+}
 
 module.exports = {
   callSendAPI,
