@@ -1,4 +1,9 @@
 // Sends response messages via the Send API
+const request = require("request");
+const dotenv = require("dotenv");
+dotenv.config();
+const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
+
 const callSendAPI = (sender_psid, response) => {
   // Construct the message body
   let request_body = {
