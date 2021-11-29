@@ -154,6 +154,12 @@ async function handlePostback(sender_psid, received_postback) {
     case "GET_STARTED":
       await chatbotService.handleGetStarted(sender_psid);
       break;
+    case "SNEAKERS_HOT":
+      response = { text: "sneakers hot" };
+      break;
+    case "GUIDE_TO_USE":
+      response = { text: "Hướng dẫn sử dụng chatbot" };
+      break;
     default:
       response = { text: `i don't know response with postback ${payload}` };
   }
@@ -166,6 +172,31 @@ const setupProfile = async (req, res, next) => {
   let request_body = {
     get_started: { payload: "GET_STARTED" },
     whitelisted_domains: ["https://chatbot-meaning.herokuapp.com/"],
+    persistent_menu: [
+      {
+        locale: "default",
+        composer_input_disabled: false,
+        call_to_actions: [
+          {
+            type: "web_url",
+            title: "Địa chỉ website",
+            url: "https://chatbot-meaning.herokuapp.com/",
+            webview_height_ratio: "full",
+          },
+          {
+            type: "web_url",
+            title: "Địa chỉ Fanpage",
+            url: "https://www.facebook.com/Chatbot-100491569149410",
+            webview_height_ratio: "full",
+          },
+          {
+            type: "postback",
+            title: "Khởi động lại cuộc hội thoại",
+            payload: "RESTART_CONVERSATION",
+          },
+        ],
+      },
+    ],
   };
   // Send the HTTP request to the Messenger Platform
   await request(

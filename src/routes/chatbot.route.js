@@ -10,6 +10,7 @@ router
   .get(ChatbotController.getWebhook)
   .post(ChatbotController.postWebhook);
 
+//setup get started btn, whitelisted domain, persistent menu
 router.route("/setup-profile").post(ChatbotController.setupProfile);
 
 module.exports = router;
