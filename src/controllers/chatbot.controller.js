@@ -156,7 +156,7 @@ async function handlePostback(sender_psid, received_postback) {
       await chatbotService.handleGetStarted(sender_psid);
       break;
     case "SNEAKERS_HOT":
-      response = { text: "sneakers hot" };
+      await chatbotService.handleSendListProduct(sender_psid);
       break;
     case "GUIDE_TO_USE":
       response = { text: "Hướng dẫn sử dụng chatbot" };
