@@ -97,11 +97,6 @@ const getStartedTemplate = () => {
               },
               {
                 type: "postback",
-                title: "HƯỚNG DẪN CHỌN SIZE",
-                payload: "GUIDE_CHOOSE_SIZE",
-              },
-              {
-                type: "postback",
                 title: "HƯỚNG DẪN SỬ DỤNG CHATBOT",
                 payload: "GUIDE_TO_USE",
               },
