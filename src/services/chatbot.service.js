@@ -12,7 +12,6 @@ async function callSendAPI(sender_psid, response) {
       id: sender_psid,
     },
     message: response,
-    sender_action: "typing_on",
   };
 
   //send typing on action
@@ -103,9 +102,9 @@ const sendMaskSeem = (sender_psid) => {
     },
     (err, res, body) => {
       if (!err) {
-        console.log("typing on!");
+        console.log("mark seen!");
       } else {
-        console.error("Unable to typing on:" + err);
+        console.error("Unable to mark seen:" + err);
       }
     }
   );
