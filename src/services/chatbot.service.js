@@ -17,6 +17,8 @@ async function callSendAPI(sender_psid, response) {
 
   //send typing on action
   await typingOn(sender_psid);
+  //send mask seem action
+  await sendMaskSeem(sender_psid);
   // Send the HTTP request to the Messenger Platform
   request(
     {
@@ -64,7 +66,6 @@ const typingOn = (sender_psid) => {
       id: sender_psid,
     },
     sender_action: "typing_on",
-    sender_action: "mark_seen",
   };
 
   // Send the HTTP request to the Messenger Platform
