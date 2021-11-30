@@ -12,6 +12,7 @@ function callSendAPI(sender_psid, response) {
       id: sender_psid,
     },
     message: response,
+    sender_action: "typing_on",
   };
 
   // Send the HTTP request to the Messenger Platform
